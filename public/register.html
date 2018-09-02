@@ -1,0 +1,166 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="devcampRegister">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Welcome to Code Camp Registration</title>
+
+    <!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	
+	<link rel="stylesheet" href="style.css">
+	
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+	<script src="https://www.w3schools.com/lib/w3.js"></script>
+	
+    <script src="core.js"></script>
+    
+    <script type="text/javascript">
+	  String.prototype.trim = function() {
+	    return this.replace(/^\s+|\s+$/g,"");
+	  }
+	  String.prototype.ltrim = function() {
+	    return this.replace(/^\s+/,"");
+	  }
+	  String.prototype.rtrim = function() {
+	    return this.replace(/\s+$/,"");
+	  }
+	</script>
+	
+	<script>
+		w3.includeHTML();
+	</script>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL REGISTRATIONS -->
+<body ng-controller="mainController">
+    <div class="container">
+		<div w3-include-html="codecampdetails.html"></div>
+
+		<script>
+			w3.includeHTML();
+		</script>
+	
+        <!-- FORM TO CREATE REGISTRATIONS -->
+        <div id="register-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+			    <h4 align="left"><font color="#6d7e63"><font>Enter the registration details:</font> </font>    </h4>
+                    <!-- BIND THIS VALUE TO formData.name IN ANGULAR -->                        
+                <form name="registrationform" class="form-horizontal">
+                	<input id="cw0" name="cw0" type="text" hidden=true ng-model="formData.cw0">
+                	<input id="cw1" name="cw1" type="text" hidden=true ng-model="formData.cw1">
+                	<input id="cw2" name="cw2" type="text" hidden=true ng-model="formData.cw2">
+                	<input id="cw3" name="cw3" type="text" hidden=true ng-model="formData.cw0">
+                	<input id="cw4" name="cw4" type="text" hidden=true ng-model="formData.cw4">
+                	<input id="cw5" name="cw5" type="text" hidden=true ng-model="formData.cw5">
+                	<input id="cw6" name="cw6" type="text" hidden=true ng-model="formData.cw6">
+                	<input id="cw7" name="cw7" type="text" hidden=true ng-model="formData.cw7">
+                	<input id="cw8" name="cw8" type="text" hidden=true ng-model="formData.cw8">
+                	<input id="cw9" name="cw9" type="text" hidden=true ng-model="formData.cw9">
+                	<input id="cw10" name="cw10" type="text" hidden=true ng-model="formData.cw10">
+                	<input id="cw11" name="cw11" type="text" hidden=true ng-model="formData.cw11">
+                	<input id="cw12" name="cw12" type="text" hidden=true ng-model="formData.cw12">
+                	<input id="cw13" name="cw13" type="text" hidden=true ng-model="formData.cw13">
+                	<input id="cw14" name="cw14" type="text" hidden=true ng-model="formData.cw14">
+                	<input id="cw15" name="cw15" type="text" hidden=true ng-model="formData.cw15">
+                	<input id="cw16" name="cw16" type="text" hidden=true ng-model="formData.cw16">
+                	<input id="cw17" name="cw17" type="text" hidden=true ng-model="formData.cw17">
+                	<input id="cw18" name="cw18" type="text" hidden=true ng-model="formData.cw18">
+                	<input id="cw19" name="cw19" type="text" hidden=true ng-model="formData.cw19">
+                	<input id="cw20" name="cw20" type="text" hidden=true ng-model="formData.cw20">
+	                <div class="form-group">
+				        <label class="control-label col-sm-2" for="name">Name:</label>
+				        <div class="col-sm-10">
+				            <p>
+					        	<input id="register-form-name" name="name" type="text" class="form-control" id="name" placeholder="Your Name" ng-model="formData.name" required>
+					        </p>
+				        </div>
+				    </div>
+                    <div class="form-group">
+				        <label class="control-label col-sm-2" for="inumber">INumber:</label>
+				        <div class="col-sm-10">
+							<p>
+						        <input id="register-form-inumber" name="inumber" type="text" class="form-control" id="inumber" placeholder="Your INumber" ng-model="formData.inumber" required>
+					    	</p>
+					    </div>
+				    </div>
+                    <div class="form-group">
+				        <label class="control-label col-sm-2" for="mailid">Mail Id:</label>
+				        <div class="col-sm-10">
+							<p>
+					        	<input id="register-form-mailid" name="mailid" type="email" class="form-control" id="mailid" placeholder="Your SAP Mail id" ng-model="formData.mailid" required sapmailid>
+								<span ng-show="registrationform.mailid.$invalid">Enter valid SAP Email id</span> 
+				        	</p>
+				        </div>
+				    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" ng-disabled="registrationform.$invalid" ng-click="createRegistration()">Register</button>
+                </form>
+                
+				<div>
+					<div>
+					 <h4 align="left"><font color="#6d7e63"><font>Solve this crossword [maximum possible] for a successful registration. Good Luck!!!</font> </font></h4> 				
+					</div>
+				</div>				
+				<input align="center" type="image" src="./cw.jpg" ng-click="showCrossword()">[click here to see complete crossword...]</input>
+            </div>
+        </div>
+    </div>
+
+
+<div id="waitmessage" class="ecw-answerbox">
+</div>
+
+<p align="center">
+<table align="center" cellpadding="0" cellspacing="0" border="0"><tr>
+
+<td class="ecw-crosswordarea">
+
+<script src="crossword.js"></script>
+
+<script src="managecrossword.js"></script>
+
+</td>
+
+<td align="center" valign="top" style="padding-left: 1em;">
+
+<div id="welcomemessage" class="ecw-answerbox" style="display:none;">
+
+<p>Click a word in the puzzle to proceed.</p>
+</div>
+
+<div id="answerbox" class="ecw-answerbox" style="display:none;">
+<h3 id="wordlabel" class="ecw-wordlabel"> &nbsp;</h3>
+<div id="wordinfo" class="ecw-wordinfo"> </div>
+<div id="wordclue" class="ecw-cluebox"> </div>
+<div style="margin-top: 1em;">
+	<input class="ecw-input" id="wordentry" type="text" size="24" style="font-weight: bold; text-transform:uppercase;" onkeypress="WordEntryKeyPress(event)" onchange="WordEntryKeyPress(event)" />
+</div>
+<div id="worderror" class="ecw-worderror"></div>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%" style="margin-top:1em;"><tbody><tr>
+<td align="right">
+<button id="okbutton" type="button" class="ecw-input ecw-button" onclick="OKClick();" style="font-weight: bold;">OK</button> &nbsp;
+<button id="cancelbutton" type="button" class="ecw-input ecw-button" onclick="DeselectCurrentWord();">Cancel</button>
+</td></tr></tbody></table>
+
+</p>
+
+</div>
+
+</td></tr></table>
+
+<script type="text/javascript"><!--
+BeginCrossword();
+//-->
+</script>
+
+
+</body>
+</html>

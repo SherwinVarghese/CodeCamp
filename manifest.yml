@@ -1,0 +1,9 @@
+---
+applications:
+- name: codecampblr
+  command: node app.js
+  memory: 512M
+  instances: 1
+  path: .
+  services:
+   - mongodb-devcampblr
