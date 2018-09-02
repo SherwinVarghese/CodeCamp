@@ -136,7 +136,7 @@ function mainController($scope, $http, $document) {
 		
 	};
 	
-	// delete a todo after checking it
+	// delete a registration
 	$scope.deleteRegistration = function(id) {
 		$http.delete('/api/registrations/' + id)
 			.success(function(data) {
@@ -145,9 +145,30 @@ function mainController($scope, $http, $document) {
 			})
 			.error(function(data) {
 				console.log(data);
+				alert(data.message + " Try again!");
+				return;
 			});
 	};
 	
+	// reset data
+	$scope.resetData = function () {
+		if (confirm("Do you really want to reset the data! This action is irreversible")) {
+			$http.delete('/api/resetdata/')
+				.success(function(data) {
+					$scope.registrations = data;
+					console.log(data);
+					window.location = "./registrations.html";
+				})
+				.error(function(data) {
+					console.log(data);
+					alert(data.message + " Try again!");
+					return;
+				});
+		} else {
+			window.location = "./registrations.html";
+		}
+	};
+
 	$scope.showCrossword = function() {
 		var strWindowFeatures = "location=no,height=570,width=520,scrollbars=yes,status=yes,titlebar=no";
 		var URL = "show_crossword.html";

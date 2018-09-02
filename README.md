@@ -44,4 +44,9 @@ This is a nodejs application. It uses MongoDB for persistency. Deploy this appli
 2. Create a service instance of MongoDB with the name **_mongodb-codecampblr_** in the Space 
 3. Run **_cf push_** from the root folder
 4. If the deployment is successful and the application is started, access the application through browser
-5. Access the link **_<appurl>/registrations_** to get the detailed list of the registrants 
+
+### Registrations for the event
+Access the link **\<appurl\>/registrations** to get the detailed list of the registrations made
+
+### Reset the data
+Simply launch the link **\<appurl\>/reset** and click on **Reset Data** to reset the registrations maintained so far

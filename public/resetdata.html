@@ -1,0 +1,63 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="devcampRegister">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Welcome to Code Camp Registration</title>
+
+    <!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	
+	<link rel="stylesheet" href="style.css">
+	
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+	<script src="https://www.w3schools.com/lib/w3.js"></script>
+	
+    <script src="core.js"></script>
+    
+    <script type="text/javascript">
+	  String.prototype.trim = function() {
+	    return this.replace(/^\s+|\s+$/g,"");
+	  }
+	  String.prototype.ltrim = function() {
+	    return this.replace(/^\s+/,"");
+	  }
+	  String.prototype.rtrim = function() {
+	    return this.replace(/\s+$/,"");
+	  }
+	</script>
+	
+	<script>
+		w3.includeHTML();
+	</script>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL REGISTRATIONS -->
+<body ng-controller="mainController">
+    <div class="container">
+		<div w3-include-html="codecampdetails.html"></div>
+
+		<script>
+			w3.includeHTML();
+		</script>
+	
+        <!-- FORM TO CREATE REGISTRATIONS -->
+        <div id="register-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">                     
+                <form name="registrationform" class="form-horizontal">
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="resetData()">Reset Data</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

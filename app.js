@@ -181,6 +181,10 @@ app.get('/register', function(req, res) {
 	res.sendfile('./public/register.html');
 });
 
+app.get('/reset', function(req, res) {
+	res.sendfile('./public/resetdata.html');
+});
+
 // listen (start app with node app.js) ===================
 var PORT = process.env.PORT || 5050;
 app.listen(PORT);
