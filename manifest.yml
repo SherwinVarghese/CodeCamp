@@ -6,4 +6,4 @@ applications:
   instances: 1
   path: .
   services:
-   - mongodb-devcampblr
+   - mongodb-codecampblr
