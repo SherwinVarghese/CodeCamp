@@ -1,4 +1,4 @@
-# codecamp
+# Code Camp
 This is the registration app for CodeCamp. The app captures basic info of the registrant such as name, inumber and email id. It exposes the topic specific Crossword, expected to be answered by the registrant. 
 
 **Note:** The application works best on Google Chrome
@@ -37,7 +37,7 @@ The application displays the title, date, venue of the CodeCamp event. So, updat
 1. Update the file **[public/codecampdetails.html](https://github.wdf.sap.corp/I026466/codecamp/blob/master/public/codecampdetails.html)** with the title, date and venue of the event
 2. Replace the **[codecamp.png](https://github.wdf.sap.corp/I026466/codecamp/blob/master/public/codecampdetails.html)** with the graphics of the event
 
-### Deploy the application
+### Deploy the application (Alternatively, skip this step and Deploy via zip file upload)
 This is a nodejs application. It uses MongoDB for persistency. Deploy this application on SAP Cloud Platform as a Cloud Foundry application. You can deploy the application in the Trial account.
 
 1. Using _CF CLI_, log on to SAP Cloud Platform and navigate to the Subaccount and Space where you want to deploy the application 
