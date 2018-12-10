@@ -1,5 +1,4 @@
-exports.Clues = ["GARDENER", "GOOGLE", "DOCKER", 
-                "REPLICATION CONTROLLER", "KUBELET", 
-                "KUBECTL", "NAMESPACES", "APISERVER", 
-                "SERVICE", "ETCD", "PERSISTENTVOLUME", 
-                "NODE", "POD", "SECRET"]
+exports.Clues = ["SMARTSCAPE", "RUM", "BACKTRACE", 
+                 "HOTSPOTS", "PAASTOKEN", "AI", 
+				 "SERVICEFLOW", "ONEAGENT", "PUREPATH",
+				 "DYNATRACE", "TAGS"]
