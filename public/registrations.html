@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
-    <title>Welcome to Code Camp Registration</title>
+    <title>Code Camp Registration</title>
 
     <!-- SCROLLS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
@@ -54,7 +54,7 @@
 
     <!-- SPELLS -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script><!-- load angular -->
     <script src="core.js"></script>
 
 </head>
@@ -67,7 +67,7 @@
 	      	<font size="6">
 	      	  <font face="Comic Sans MS">
 	      	    <font color="#6d7e63">      	      
-	                <font>Welcome to Code Camp !!!</font>
+	                <font>Welcome to Code Camp Registration</font>
 	            </font>
 	          </font>
 	        </font>
@@ -79,7 +79,15 @@
             		Current registrations to Code Camp: {{ registrations.length }}
            		</font> 
            	</font>
-          </h4> 
+          </h4>
+          <div id="register-form" class="row" ng-if="registrations.length ">
+            <div class="col-sm-8 col-sm-offset-2 text-center">                     
+                <form name="registrationform" class="form-horizontal">
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="excelExport()">Export Data to CSV</button>
+                </form>
+                <br/ >
+            </div>
+        </div>
 		</div>
 
         <!-- REGISTRATION LIST -->
@@ -87,18 +95,24 @@
             <table>
               <tr>
                 <th>Sl.No</th>
+                <!-- Excluding it from the UI for security reasons -->
+			  	<!--
                 <th>Registration ID</th>
+            	-->
                 <th>Name</th>
                 <th>I/D Number</th>
                 <th>Mail ID</th>
                 <th>Message</th>
                 <th>Status</th>
-								<th>Start Time</th>
+				<th>Start Time</th>
                 <th>Registration Time</th>
               </tr>
 			  <tr ng-repeat="registration in registrations">
 			  	<td>{{ $index + 1 }}</td>
+			  	<!-- Excluding it from the UI for security reasons -->
+			  	<!--
 			    <td>{{ registration._id }}</td>
+				-->
 			    <td>{{ registration.name }}</td>
 			    <td>{{ registration.inumber }}</td>
 			    <td>{{ registration.mailid }}</td>

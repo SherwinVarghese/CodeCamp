@@ -48,5 +48,5 @@ This is a nodejs application. It uses MongoDB for persistency. Deploy this appli
 ### Registrations for the event
 Access the link **\<appurl\>/registrations** to get the detailed list of the registrations made
 
-### Reset the data
+### Reset the data [Disabled by default for security reasons]
 Simply launch the link **\<appurl\>/reset** and click on **Reset Data** to reset the registrations maintained so far

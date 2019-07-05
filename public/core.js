@@ -173,5 +173,44 @@ function mainController($scope, $http, $document) {
 		var strWindowFeatures = "location=no,height=570,width=520,scrollbars=yes,status=yes,titlebar=no";
 		var URL = "show_crossword.html";
 		var win = window.open(URL, "_blank", strWindowFeatures);
-	}
+	};
+
+	//Export data to excel
+	$scope.excelExport = function(){
+
+
+        var json = $scope.registrations;
+		var fields = Object.keys(json[0]); //JSON Column names
+		//Removing un necessary fields. 
+		fields.splice(6,1);
+		fields.splice(8,1);
+		fields.splice(0,1);
+
+		var replacer = function(key, value) { return value === null ? '' : value } 
+		var csv = json.map(function(row){
+ 	 		return fields.map(function(fieldName){
+    			return JSON.stringify(row[fieldName], replacer)
+  			}).join(',')
+		})
+		var csvHeaders = ["Name", "I Number", "Email Id", "Message", "Status", "Start Time", "Registration Time"]
+		csv.unshift(csvHeaders.join(',')) // add header column
+
+		//Initiate a file download.
+		var element = document.createElement('a');
+  		element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent( csv.join('\r\n') ));
+  		element.setAttribute('download', "Code Camp Registrations.csv");
+
+  		element.style.display = 'none';
+  		document.body.appendChild(element);
+
+  		element.click();
+
+  		document.body.removeChild(element);
+
+		//console.log(csv.join('\r\n'))
+
+        return ;
+
+
+	};
 }

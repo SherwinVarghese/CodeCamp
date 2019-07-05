@@ -6,6 +6,10 @@ var methodOverride = require('method-override');
 
 var app = express();
 
+//Constants for Waiting list Threshold.
+const waitingListMin = 30;
+const waitingListMax = 40;
+
 // configuration =============================
 if (process.env.VCAP_SERVICES) {
    var env = JSON.parse(process.env.VCAP_SERVICES);
@@ -59,7 +63,7 @@ app.post('/api/registrations', function(req, res) {
 				if (err)
 					res.send(err);
 				console.log("Number of registrations::::: " + registrations.length);
-				if(registrations.length > 80 && registrations.length <= 1000) {
+				if(registrations.length > waitingListMin && registrations.length <= waitingListMax) {
 				    var conditions = { _id: registration._id }
 				      , update = { status: 'waitinglist' }
 				      , options = {};
@@ -79,7 +83,7 @@ app.post('/api/registrations', function(req, res) {
 						"message" : "You are on the waiting list!"
 					};
 					res.status(400).json({"code" : "400", "message" : error});
-				} else if(registrations.length > 1000) {
+				} else if(registrations.length > waitingListMax) {
 				    var conditions = { _id: registration._id }
 				      , update = { status: 'closed' }
 				      , options = { multi: true };
@@ -155,6 +159,11 @@ app.delete('/api/registrations/:registration_id', function(req, res) {
 	});
 });
 
+/* 
+ * Exposing this end point publicly is dangerous!
+ * Uncomment only when necessary
+ */ 
+ /*
 app.delete('/api/resetdata', function(req, res) {
 	Registrations.remove({}, function(err) {
 		if(err)
@@ -166,11 +175,19 @@ app.delete('/api/resetdata', function(req, res) {
 			res.json(registrations);	
 		});
 	});
-});
+});*/
 
 // application ------------------------
 app.get('/', function(req, res) {
-	res.sendfile('./public/register.html');
+	Registrations.find(function(err, registrations) {
+		if (err)
+			res.send(err);
+		if(registrations.length < waitingListMax) {
+			res.sendfile('./public/register.html');
+		} else {
+			res.sendfile('./public/registrationsclosed.html');
+		}
+	});
 });
 
 app.get('/registrations', function(req, res) {
@@ -178,17 +195,29 @@ app.get('/registrations', function(req, res) {
 });
 
 app.get('/register', function(req, res) {
-	res.sendfile('./public/register.html');
+	Registrations.find(function(err, registrations) {
+		if (err)
+			res.send(err);
+		if(registrations.length < waitingListMax) {
+			res.sendfile('./public/register.html');
+		} else {
+			res.sendfile('./public/registrationsclosed.html');
+		}
+	});
 });
 
+/* 
+ * Exposing this end point publicly is dangerous!
+ * Uncomment only when necessary
+ */ 
+ /*
 app.get('/reset', function(req, res) {
 	res.sendfile('./public/resetdata.html');
-});
+});*/
 
 // listen (start app with node app.js) ===================
 var PORT = process.env.PORT || 5050;
 app.listen(PORT);
 console.log("App listening on port " + PORT);
-
 
 
