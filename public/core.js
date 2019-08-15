@@ -37,13 +37,17 @@ devcampRegister.directive('sapmailid', function() {
 function mainController($scope, $http, $document) {
 	$scope.formData = {};
 	$scope.crossword = {};
+	$scope.validationObj = {};
 	
 	var form = $document.registerform;
+
+	console.warn("Smart move, but not the wisest! Good luck.. :)");
+	console.warn("In case you wish to report bugs or any enhancements, drop a mail to sherwin.varghese@sap.com");
 	
 	$http.get('/api/registrations').
 		success(function(data) {
 			$scope.registrations = data;
-			console.log(data);
+			//console.log(data);
 		}).
 		error(function(data) {
 			console.log('Error: ' + data);
@@ -76,7 +80,7 @@ function mainController($scope, $http, $document) {
 				if(inputArr[i].id && inputArr[i].id.startsWith("cw")) {
 					id = inputArr[i].id.substring(2);
 					wordArr[id] = inputArr[i].value;
-					console.log("Word " + id + "    value " + wordArr[id]);
+					//console.log("Word " + id + "    value " + wordArr[id]);
 				}				
 			}
 
@@ -101,7 +105,40 @@ function mainController($scope, $http, $document) {
 			$scope.crossword.cw18 = wordArr[18];			
 			$scope.crossword.cw19 = wordArr[19];			
 			$scope.crossword.cw20 = wordArr[20];
-			$http.post('/api/validate', $scope.crossword)
+
+			$scope.validationObj = $scope.crossword;
+			for(key in $scope.formData){
+				$scope.validationObj[key] = $scope.formData[key]
+			}
+
+			$http.post('/api/registrations', $scope.validationObj)
+				.success(function(data) {
+					$scope.formData = {}; //clear the form so our user is ready to enter another
+					$scope.registrations = data;
+					$scope.formData.message = data.validationmessage;
+					console.log(data);	
+					window.location = "./success.html";
+				})
+				.error(function(data) {
+					console.log(data);
+					if(data.validationmessage){
+						//Show the error message
+						$scope.formData.message = data.validationmessage;
+						alert(data.validationmessage + " Try again!");
+						return;
+					}
+					if(data.message && data.message.code && data.message.code == "11000") {
+						window.location = "./duplicateRegistration.html";
+					} else if(data.message && data.message.code && data.message.code == "1000") {
+						window.location = "./waitinglist.html";						
+					} else if(data.message && data.message.code && data.message.code == "1001") {
+						window.location = "./registrationsclosed.html";						
+					} else
+						window.location = "./error.html";
+				});
+
+
+			/*$http.post('/api/validate', $scope.crossword)
 				.success(function(data) {
 					$scope.formData.message = data.message;
 					$scope.crossword = {};
@@ -131,7 +168,7 @@ function mainController($scope, $http, $document) {
 					console.log("Validation Failed::::"+data.message);
 					alert(data.message + " Try again!");
 					return;
-				});			
+				});		*/	
 		}
 		
 	};

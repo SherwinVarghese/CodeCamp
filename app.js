@@ -15,7 +15,8 @@ if (process.env.VCAP_SERVICES) {
    var env = JSON.parse(process.env.VCAP_SERVICES);
    mongoose.connect(env['mongodb'][0].credentials.uri);
 } else {
-   mongoose.connect('mongodb://r3nwsa9dhoq7hb40:ratm745ilgtrok3b@10.11.241.3:44923/ew0nt2x4gifseont');
+   //mongoose.connect('mongodb://localhost/ew0nt2x4gifseont'); //Local server
+   mongoose.connect('mongodb://r3nwsa9dhoq7hb40:ratm745ilgtrok3b@10.11.241.3:44923/ew0nt2x4gifseont'); //CF Mongo DB instance
 }
 
 app.use(express.static(__dirname + '/public'));
@@ -44,12 +45,32 @@ app.get('/api/registrations', function(req, res) {
 
 //create registration and send back all registrations after creation
 app.post('/api/registrations', function(req, res) {
+	//Validate the incoming request before making the registration.
+	var validationObj = req.body;
+	console.log(req.body);
+	if(req.body.cw0 == null || typeof(req.body.cw0) == 'undefined' || req.body.cw20 == null || typeof(req.body.cw0) == 'undefined'){
+		console.log("Cross Word not solved! Sending Error");
+		return res.status(400).json({"code":"400", "message":"Please solve the crossword & get atleast 5 right for successful registration."});
+	} else {
+		req.url = '/api/validate';
+		req.body = validationObj;
+		validationResponse = validateCrossWord(req);
+
+		//Check the Validation Response and register only if there are no validation errors.
+		switch(validationResponse.code){
+			case "200":  //Continue the DB update.
+				break;
+			case "400":
+				return res.status(400).json(validationResponse);
+		}
+	}
+
 	// create a registration, information comes from AJAX request from Angular
 	Registrations.create({
 		name : req.body.name,
 		inumber : req.body.inumber,
 		mailid : req.body.mailid,
-		message : req.body.message,
+		message : validationResponse.validationmessage,
 		status : "Success",
 		regtime : (new Date()).getTime()
 	}, function(err, registration) {
@@ -60,8 +81,14 @@ app.post('/api/registrations', function(req, res) {
 		} else {
 			//get and return all the registrations after you create another
 			Registrations.find(function(err, registrations) {
-				if (err)
-					res.send(err);
+				if(err) {
+					console.log(err);
+					var error = {
+						"code" : "1002",
+						"message" : "Something went wrong!"
+					};
+					res.status(400).json({"code" : "400", "message" : error});
+				}
 				console.log("Number of registrations::::: " + registrations.length);
 				if(registrations.length > waitingListMin && registrations.length <= waitingListMax) {
 				    var conditions = { _id: registration._id }
@@ -113,11 +140,23 @@ app.post('/api/registrations', function(req, res) {
 	});
 });
 
-app.post('/api/validate', function(req, res) {
+app.post('/api/validate', function (req, res) {
+	
+	validateResult = validateCrossWord(req);
+	res.status(validateResult.code).json(validateResult);
+
+});
+
+function validateCrossWord(req){
+
+	validateResult = {};
+
 	var right = 0;
 	var wrong = 0;
 
 	console.log("CROSSWORD LENGTH:::::::: "+crosswordClues.length);
+
+
 
 	var i = 0;
 	for (i; i< crosswordClues.length; i++) {
@@ -132,16 +171,17 @@ app.post('/api/validate', function(req, res) {
 	}
 	if(right == crosswordClues.length && wrong == 0) {
 		console.log("Sending success");
-		res.status(200).json({"code":"200", "message":"Crossword successfully solved"});
+		validateResult = {"code":"200", "validationmessage":"Crossword successfully solved"};
 	} else if (right >= 5) {
 		console.log("Completed with few errors");
-		res.status(200).json({"code":"200", "message":right+" Correct; "+wrong+" Incorrect"});
+		validateResult = {"code":"200", "validationmessage":right+" Correct; "+wrong+" Incorrect"};
 	} else {
 		console.log("More errors, sending error");
-		res.status(400).json({"code":"400", "message":right+" correct answers. Get atleast 5 right for successful registration but maximum possible to have a better chance."});
+		validateResult = {"code":"400", "validationmessage":right+" correct answers. Get atleast 5 right for successful registration but maximum possible to have a better chance."};
 	}
-		
-});
+
+	return validateResult;
+}
 
 //delete a registration
 app.delete('/api/registrations/:registration_id', function(req, res) {
