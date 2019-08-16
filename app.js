@@ -7,8 +7,8 @@ var methodOverride = require('method-override');
 var app = express();
 
 //Constants for Waiting list Threshold.
-const waitingListMin = 30;
-const waitingListMax = 40;
+const waitingListMin = 80;
+const waitingListMax = 170;
 
 // configuration =============================
 if (process.env.VCAP_SERVICES) {
