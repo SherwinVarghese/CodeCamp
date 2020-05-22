@@ -67,7 +67,7 @@ app.post('/api/registrations', function(req, res) {
 
 	// create a registration, information comes from AJAX request from Angular
 	Registrations.create({
-		name : req.body.name,
+		name : req.body.name.toUpperCase(),
 		inumber : req.body.inumber,
 		mailid : req.body.mailid,
 		message : validationResponse.validationmessage,
