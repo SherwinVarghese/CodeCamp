@@ -10,14 +10,8 @@ var app = express();
 const waitingListMin = 80;
 const waitingListMax = 170;
 
-// configuration =============================
-if (process.env.VCAP_SERVICES) {
-   var env = JSON.parse(process.env.VCAP_SERVICES);
-   mongoose.connect(env['mongodb'][0].credentials.uri);
-} else {
-   //mongoose.connect('mongodb://localhost/ew0nt2x4gifseont'); //Local server
-   mongoose.connect('mongodb://r3nwsa9dhoq7hb40:ratm745ilgtrok3b@10.11.241.3:44923/ew0nt2x4gifseont'); //CF Mongo DB instance
-}
+// REPLACE THE LINE BELOW TO ADD MONGO DB CONNECTION STRING
+mongoose.connect('mongodb://r3nwsa9dhoq7hb40:ratm745ilgtrok3b@10.11.241.3:44923/ew0nt2x4gifseont'); //Mongo DB instance
 
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
