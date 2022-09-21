@@ -96,7 +96,7 @@
 				        <div class="col-sm-10">
 							<p>
 					        	<input id="register-form-mailid" name="mailid" type="email" class="form-control" id="mailid" placeholder="Your SAP Mail id" ng-model="formData.mailid" required sapmailid>
-								<span ng-show="registrationform.mailid.$invalid">Enter valid SAP Email id</span> 
+								<span ng-show="registrationform.mailid.$dirty && registrationform.mailid.$invalid">Enter valid SAP Email id</span> 
 				        	</p>
 				        </div>
 				    </div>
