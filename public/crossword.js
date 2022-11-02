@@ -2,7 +2,6 @@
 	CrosswordHeight = 13;
 	Words = 11;
 	WordLength = new Array(10, 3, 9, 8, 9, 2, 11, 8, 8, 9, 4);
-	WordLengthInStr = new Array(10, 3, 9, 8, 9, 2, 11, 8, 8, 9, 4);
 	Clue = new Array("If google maps-->google and yahoo maps--->yahoo, then ________---->Dynatrace", 
 "To analyzes the performance of all user interaction with your applications, whether the interactions take place in a browser or on a mobile device in Dynatrace", 
 "To show which services directly call a particular back-end service but also the sequence of preceding service calls in Dynatrace", 

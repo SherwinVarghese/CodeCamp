@@ -28,8 +28,7 @@ The application uses the html+javascript files generated from the tool as descri
 2. Update the **[models/CrosswordClues.js](https://github.com/SherwinVarghese/CodeCamp/blob/master/models/CrosswordClues.js)** with the answers of the current crossword. This is required for validating the answers during registration
 3. Replace the **[public/crossword.js](https://github.com/SherwinVarghese/CodeCamp/blob/master/public/crossword.js)** with the similar script from the generated interactive javascript files in the above step. Look for similar section in the file. Check the **[/public/crossword.js](https://github.com/SherwinVarghese/CodeCamp/blob/master/public/crossword.js)** file for reference
 4. Ensure to remove the answers [Word array] array from the script
-5. Add a new array **WordLengthInStr** to indicate the length of the answers as String. If the answer is multiple words, specify the length of each word as comma separated - ex: "11,10" 
-6. Compare with the section in **[public/crossword.js](https://github.com/SherwinVarghese/CodeCamp/blob/master/public/crossword.js)** and remove the unwanted lines
+5. Compare with the section in **[public/crossword.js](https://github.com/SherwinVarghese/CodeCamp/blob/master/public/crossword.js)** and remove the unwanted lines
 
 ### Update CodeCamp details 
 The application displays the title, date, venue of the CodeCamp event. So, update this appropriately 

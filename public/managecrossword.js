@@ -219,7 +219,7 @@ function SelectThisWord(event)
 	}
 	
 	document.getElementById("wordlabel").innerHTML = TheirWord;
-	document.getElementById("wordinfo").innerHTML = ((CurrentWord <= LastHorizontalWord) ? "Across, (" : "Down, (") + WordLengthInStr[CurrentWord] + ") letters. <br> Multiple word answers should be space separated";
+	document.getElementById("wordinfo").innerHTML = ((CurrentWord <= LastHorizontalWord) ? "Across, (" : "Down, (") + WordLength[CurrentWord] + ") letters. <br> Multiple word answers should be space separated";
 	document.getElementById("wordclue").innerHTML = Clue[CurrentWord];
 	document.getElementById("worderror").style.display = "none";
 	if (TheirWordLength == WordLength[CurrentWord])
